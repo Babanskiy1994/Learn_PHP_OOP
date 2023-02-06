@@ -1,38 +1,46 @@
 <?php
 
-// Пример: клас получения письма стоит расширять классами получением МК, чека, и т.д., а не модифицировать
+// Пример: существует класс отправки письма, в конструктор которого передается экземпляр класса отправки скрытой копии письма. Через время решаем вместо отпраки скрытой копии сохранять письмо в БД. Следует создать интерфейс дубликации письма и 2 имплементирующих класса: отправка скрытой копии и сохранения в БД. И передавать в конструктор класса отправки письма экземпляр, реализующий данный интерфейс.
 
+class MailSending {
+    private $mailCopy;
 
-class MailGettingService {
-    public function get() {
-        return 'Mail';
+    public function __construct(ICopyMail $mail) {
+        $this->mailCopy = $mail;
+    }
+
+    public function sendMail($mail){
+        // отправка письма
+        echo "Письмо " . $mail . " отправлено." . PHP_EOL;
+        // копия письма
+        echo $this->mailCopy->copyMail($mail);
     }
 }
 
-class MailGettingServiceMK {
-    private MailGettingService $mailGettingService;
+interface ICopyMail{
+    public function copyMail($mail);
+}
 
-    function __construct(MailGettingService $mailGettingService) {
-        $this->mailGettingService = $mailGettingService;
+class HiddenMailCopy implements ICopyMail {
+    public function copyMail($mail){
+        $this->sendMailCopy($mail);
     }
 
-    public function get() {
-        return $this->mailGettingService->get() . PHP_EOL .'MK';
+    private function sendMailCopy($mail){
+        echo "Скрытая копия письма " . $mail . " отправлена" . PHP_EOL;
     }
 }
 
-class MailGettingServiceCheck {
-    private MailGettingService $mailGettingService;
-
-    function __construct(MailGettingService $mailGettingService) {
-        $this->mailGettingService = $mailGettingService;
+class DBMailCopy implements ICopyMail {
+    public function copyMail($mail){
+        $this->saveMailCopy($mail);
     }
 
-    public function get() {
-        return $this->mailGettingService->get() . PHP_EOL .'Check';
+    private function saveMailCopy($mail){
+        echo "Копия письма " . $mail . " сохранена в БД." . PHP_EOL;
     }
 }
 
-$mk = new MailGettingServiceMK(new MailGettingService());
-$check = new MailGettingServiceCheck(new MailGettingService());
-echo $mk->get() . PHP_EOL .$check->get();
+$mailCopy = new DBMailCopy;
+$mail = new MailSending($mailCopy);
+$mail->sendMail('123');

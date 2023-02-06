@@ -1,14 +1,28 @@
 <?php
 
-// Пример: Метод, который получает номер заказа не должен делать запрос в базу за информацией о заказе
+// Пример: отправка письма о забронированном заказе и отправка скрытой копии письма должны быть в разных классах
 
-class OrderId {
-    private $billingNumber;
-    // Getter and setter
-}
+class MailSending {
+    private $mailCopy;
 
-class OrderInfo {
-    public function info(OrderId $orderId) {
-        // Get order info from database
+    public function __construct(HiddenMailCopy $hiddenMailCopy) {
+        $this->mailCopy = $hiddenMailCopy;
+    }
+
+    public function sendMail($mail){
+        // отправка письма
+        echo "Письмо " . $mail . " отправлено." . PHP_EOL;
+        // отправка скрытой копии
+        echo $this->mailCopy->sendHiddenMailCopy($mail);
     }
 }
+
+class HiddenMailCopy {
+    public function sendHiddenMailCopy($mail){
+        echo "Скрытая копия письма " . $mail . " отправлена" . PHP_EOL;
+    }
+}
+
+$mailCopy = new HiddenMailCopy;
+$mail = new MailSending($mailCopy);
+$mail->sendMail('123');
