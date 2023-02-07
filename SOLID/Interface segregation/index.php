@@ -14,49 +14,52 @@ $trainData = [
     'number' => '257',
 ];
 
-interface IShowDirectionsData{
+interface IShowDirectionsData
+{
     public function showDepatureData();
     public function showArrivalData();
 }
 
-interface IShowCarriageNumber {
+interface IShowCarriageNumber
+{
     public function showCarriageNumber();
 }
 
-interface IShowFlightClass{
+interface IShowFlightClass
+{
     public function showFlightClass();
 }
 
-class ShowFlightData implements IShowDirectionsData, IShowFlightClass{
+class ShowFlightData implements IShowDirectionsData, IShowFlightClass
+{
     private $orderData;
-    public function __construct($orderData)
-    {
+    public function __construct($orderData) {
         $this->orderData = $orderData;
     }
-    public function showDepatureData(){
+    public function showDepatureData() {
         echo 'Вылет из: ' . $this->orderData['depature'] . PHP_EOL;
     }
-    public function showArrivalData(){
+    public function showArrivalData() {
         echo 'Прилет в: ' . $this->orderData['arrival'] . PHP_EOL;
     }
-    public function showFlightClass(){
+    public function showFlightClass() {
         echo 'Класс перелета: ' . $this->orderData['class'] . PHP_EOL;
     }
 }
 
-class ShowTrainTripData implements IShowDirectionsData, IShowCarriageNumber{
+class ShowTrainTripData implements IShowDirectionsData, IShowCarriageNumber
+{
     private $orderData;
-    public function __construct($orderData)
-    {
+    public function __construct($orderData) {
         $this->orderData = $orderData;
     }
-    public function showDepatureData(){
+    public function showDepatureData() {
         echo 'Выезд из: ' . $this->orderData['depature'] . PHP_EOL;
     }
-    public function showArrivalData(){
+    public function showArrivalData() {
         echo 'Прибытие в: ' . $this->orderData['arrival'] . PHP_EOL;
     }
-    public function showCarriageNumber(){
+    public function showCarriageNumber() {
         echo 'Номер вагона: ' . $this->orderData['number'] . PHP_EOL;
     }
 }

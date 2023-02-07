@@ -14,15 +14,12 @@ class Update implements OrderUpdate
 
 class LogUpdate implements OrderUpdate
 {
-    protected $object;
-
-    public function __construct(OrderUpdate $upd) {
-        $this->object = $upd;
+    public function __construct(protected OrderUpdate $upd) {
     }
 
     public function update() {
         echo 'Логирование обновления заказа' . PHP_EOL;
-        $this->object->update();
+        $this->upd->update();
     }
 }
 

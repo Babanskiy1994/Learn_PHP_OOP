@@ -9,32 +9,33 @@ $hotelDataOstrovok = [
 
 $hotelDataOktogo = '{"hotel":"Test Oktogo","id":"2"}';
 
-interface IShowHotelData{
+interface IShowHotelData
+{
     public function show():array;
 }
 
-class ShowHotelDataFromOstrovok implements IShowHotelData{
+class ShowHotelDataFromOstrovok implements IShowHotelData
+{
     private $hotelData;
 
-    public function __construct($hotelData)
-    {
+    public function __construct($hotelData) {
         $this->hotelData = $hotelData;
     }
     
-    public function show():array{
+    public function show():array {
         return $this->hotelData;
     }
 }
 
-class ShowHotelDataFromOktogo implements IShowHotelData{
+class ShowHotelDataFromOktogo implements IShowHotelData
+{
     private $hotelData;
 
-    public function __construct($hotelData)
-    {
+    public function __construct($hotelData) {
         $this->hotelData = $hotelData;
     }
     
-    public function show():array{
+    public function show():array {
         return json_decode($this->hotelData, true);
     }
 }

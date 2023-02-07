@@ -1,17 +1,11 @@
 <?php
 
-class carFactory {
-
-    public function __construct() {
-        // ... //
-    }
-
+class carFactory
+{
     public static function build ($type = '') {
-
         if($type == '') {
             throw new Exception('Invalid Car Type.');
         } else {
-
             $className = 'car_'.ucfirst($type);
 
             // проверка существования класса
@@ -24,20 +18,18 @@ class carFactory {
     }
 }
 
-class car_Sedan {
-
+class car_Sedan 
+{
     public function __construct() {
         echo "Creating Sedan" . PHP_EOL;
     }
-
 }
 
-class car_Suv {
-
+class car_Suv 
+{
     public function __construct() {
         echo "Creating SUV" . PHP_EOL;
     }
-
 }
 
 // Создаём новый Sedan

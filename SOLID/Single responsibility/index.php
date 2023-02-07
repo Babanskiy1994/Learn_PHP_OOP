@@ -2,18 +2,16 @@
 
 // Пример: отправка письма о забронированном заказе и отправка скрытой копии письма должны быть в разных классах
 
-class MailSending {
-    private $mailCopy;
-
-    public function __construct(HiddenMailCopy $hiddenMailCopy) {
-        $this->mailCopy = $hiddenMailCopy;
+class MailSending 
+{
+    public function __construct(private HiddenMailCopy $hiddenMailCopy) {
     }
 
     public function sendMail($mail){
         // отправка письма
         echo "Письмо " . $mail . " отправлено." . PHP_EOL;
         // отправка скрытой копии
-        echo $this->mailCopy->sendHiddenMailCopy($mail);
+        echo $this->hiddenMailCopy->sendHiddenMailCopy($mail);
     }
 }
 

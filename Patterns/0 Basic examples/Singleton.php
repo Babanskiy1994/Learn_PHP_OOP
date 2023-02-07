@@ -4,8 +4,7 @@ class Singleton
 {
     private static ?Singleton $instance = null;
 
-    public static function getInstance(): self
-    {
+    public static function getInstance(): self {
         if (!self::$instance) {
             self::$instance = new self();
         }
@@ -13,10 +12,13 @@ class Singleton
         return self::$instance;
     }
 
-    private function __construct(){}
-    private function __clone(){}
-    public function __wakeup()
-    {
+    private function __construct() {
+    }
+
+    private function __clone() {
+    }
+    
+    public function __wakeup() {
         throw new Exception("Cannot unserialize singleton");
     }
 }

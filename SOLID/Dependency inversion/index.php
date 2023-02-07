@@ -2,25 +2,29 @@
 
 // Пример: зависимости должны строится относительно абстракций, а не деталей.
 
-interface Document{
+interface Document
+{
     public function read();
 }
 
-class DocumentReader{
+class DocumentReader
+{
     private $doc;
-    public function __construct(Document $doc){
+    public function __construct(Document $doc) {
         $this->doc = $doc;
     }
 
-    public function read(){
+    public function read() {
         return $this->doc->read();
     }
 }
 
-class Txt implements Document{
+class Txt implements Document
+{
     public function read(){/*...*/}
 }
 
-class Markdown implements Document{
+class Markdown implements Document
+{
     public function read(){/*...*/}
 }
