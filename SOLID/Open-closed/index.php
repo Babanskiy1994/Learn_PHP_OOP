@@ -11,7 +11,7 @@ class MailSending
         // отправка письма
         echo "Письмо " . $mail . " отправлено." . PHP_EOL;
         // копия письма
-        echo $this->iCopyMail->copyMail($mail);
+        $this->iCopyMail->copyMail($mail);
     }
 }
 
